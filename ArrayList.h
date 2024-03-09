@@ -13,7 +13,7 @@ class ArrayList{
         T pop(int index);
         void remove(T item);
         int getCount();
-
+        void insert(T item,int location);
     private:
         T* a;
         int count;

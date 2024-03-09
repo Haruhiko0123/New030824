@@ -3,7 +3,7 @@
 using namespace std;
 
 template <typename T> ArrayList<T>::ArrayList(){
-    capacity = 4;
+    capacity = 8;
     a = new T[capacity];
     count = 0;
     // for (int i = 0; i < capacity; i++){
@@ -12,6 +12,9 @@ template <typename T> ArrayList<T>::ArrayList(){
 }
 
 template <typename T> void ArrayList<T>::addItem( T num){
+    if( count == capacity){
+        grow();
+    }
     a[count++] = num;
 }
 
@@ -71,8 +74,8 @@ template <typename T> int ArrayList<T>::getCount(){
 }
 
 template <typename T> void ArrayList<T>::grow (){
-    int* old = a; 
-    a = new int[capacity*2];
+    T* old = a; 
+    a = new T[capacity*2];
     for (int i = 0; i <count; i ++){
         a[i] = old[i];
     }
@@ -81,3 +84,28 @@ template <typename T> void ArrayList<T>::grow (){
     delete old;
 
 }
+template <typename T> void ArrayList<T>::insert(T item, int location){
+if (location > capacity){
+        throw out_of_range("out of bounds");
+    }
+    else{
+         count++;
+        for(int i= location; i<capacity; i++){
+            a[i+1] = a[i];
+        }
+        a[location] = item;
+    }
+};
+
+template <typename T> void ArrayList<T>::remove(T item){
+    if (count == 0){
+        throw out_of_range("List is empty");
+    }
+    item = a[0];
+    for (int i = 0; i< count; i++){
+        a[i] = a[i+1];
+    }
+    count --;
+    cout << "The number removed is "<<item<<endl;
+};
+
